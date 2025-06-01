@@ -135,17 +135,64 @@
         font-size: 4.2em;
         margin: 30px 0;
         font-weight: bold;
-        color: #1a4f7e; /* 진한 남색으로 변경 */
+        color: #1a4f7e;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       }
 
-      .content-box {
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 20px;
-        padding: 40px;
-        margin: 200px auto; /* 상단 여백 증가 */
+      .description {
+        font-size: 1.1em;
+        color: #666;
+        margin-bottom: 60px;
+        line-height: 1.6;
+      }
+
+      .button-container {
+        text-align: center;
+        width: 100%;
         max-width: 800px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        margin-bottom: 15px;
+      }
+
+      .download-button {
+        display: inline-block;
+        width: 240px;
+        height: 72px;
+        background: url('button.png') no-repeat center center;
+        background-size: contain;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .download-button:hover {
+        transform: scale(1.05);
+      }
+
+      .bottom-button {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+      }
+
+      .bottom-button .download-button {
+        background-image: url('button2.png');
+        width: 720px;
+        height: 216px;
+      }
+
+      .content-box {
+        position: relative;
+        margin: 60px auto;
+        max-width: 800px;
+        padding: 20px 60px;
+        background: url('textbox.png') center center / 100% 100% no-repeat;
+        opacity: 0.80;
+      }
+
+      .content-box:first-of-type {
+        margin-top: 15px;
       }
 
       .content-box p {
@@ -153,11 +200,25 @@
         line-height: 1.6;
         color: #333;
         margin-bottom: 20px;
+        opacity: 1;
       }
 
       p {
         font-size: 1.2em;
         line-height: 1.6;
+      }
+
+      .tree-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+      }
+
+      .tree-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
       }
 
       /* 모바일 환경을 위한 미디어 쿼리 추가 */
@@ -207,17 +268,64 @@
         }
 
         .content-box {
-          margin: 150px auto;
-          padding: 20px;
+          margin: 30px auto;
+          padding: 15px 30px;
+          max-width: 95%;
         }
 
         .content-box p {
           font-size: 1.2em;
         }
+
+        .button-container {
+          max-width: 95%;
+        }
+
+        .download-button {
+          width: 192px;
+          height: 58px;
+        }
+
+        .bottom-button .download-button {
+          width: 576px;
+          height: 174px;
+        }
+
+        .tree-container {
+          max-width: 95%;
+        }
+      }
+
+      .scroll-indicator {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        display: none;
+      }
+
+      .scroll-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        margin: 10px 0;
+        transition: background-color 0.3s ease;
+      }
+
+      .scroll-dot.active {
+        background-color: rgba(255, 255, 255, 1);
       }
     </style>
   </head>
   <body>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+      <div class="scroll-dot"></div>
+      <div class="scroll-dot"></div>
+      <div class="scroll-dot"></div>
+    </div>
     <div class="scene">
       <div class="cloud cloud1"></div>
       <div class="cloud cloud2"></div>
@@ -234,6 +342,14 @@
         #트래블 월렛 기부천사
       </div>
       <div class="subtitle">Change for Change</div>
+      <div class="description">
+        여행 후 남은 외화를 확인해보세요!<br>
+        불필요한 돈이, 필요한 희망이 됩니다<br>
+        저희 캠페인은 초록우산과 함께합니다.
+      </div>
+      <div class="button-container">
+        <a href="#" class="download-button" onclick="handleDownload(event)"></a>
+      </div>
       <div class="content-box">
         <p>
           매일 수많은 비행기가 하늘을 날아다니며 우리의 삶을 편리하게 만들어주고
@@ -249,52 +365,38 @@
           단거리 이동은 가능한 대중교통을 이용하고, 장거리 여행 시에는 탄소 상쇄
           프로그램을 활용하는 등 작은 실천이 모여 큰 변화를 만들 수 있습니다.
         </p>
-        <p>지구를 위한 우리의 선택이 지금 당장 필요합니다.</p>
         <p>
-          매일 수많은 비행기가 하늘을 날아다니며 우리의 삶을 편리하게 만들어주고
-          있습니다. 하지만 이 편리함의 이면에는 심각한 환경 문제가 도사리고
-          있습니다. 비행기는 항공유를 연소시킬 때 이산화탄소, 질소산화물 등
-          다양한 온실가스를 배출합니다. 특히 고공에서 배출되는 이 가스들은 지구
-          온난화에 더 큰 영향을 미친다고 합니다.
+          기후 변화로 인한 자연재해는 이미 전 세계 곳곳에서 발생하고 있습니다.
+          홍수, 가뭄, 산불 등으로 인해 수많은 사람들이 삶의 터전을 잃고
+          기후난민이 되어가고 있습니다. 특히 개발도상국의 취약 계층이 가장 큰
+          피해를 입고 있으며, 이들에 대한 지원이 시급한 상황입니다.
         </p>
         <p>
-          2019년 기준, 항공 산업은 전 세계 이산화탄소 배출량의 약 2.5%를
-          차지하고 있으며, 이는 지속적으로 증가하는 추세입니다. 우리가 비행기를
-          이용할 때마다 발생하는 탄소 발자국을 줄이기 위한 노력이 필요합니다.
-          단거리 이동은 가능한 대중교통을 이용하고, 장거리 여행 시에는 탄소 상쇄
-          프로그램을 활용하는 등 작은 실천이 모여 큰 변화를 만들 수 있습니다.
-        </p>
-        <p>지구를 위한 우리의 선택이 지금 당장 필요합니다.</p>
-        <p>
-          매일 수많은 비행기가 하늘을 날아다니며 우리의 삶을 편리하게 만들어주고
-          있습니다. 하지만 이 편리함의 이면에는 심각한 환경 문제가 도사리고
-          있습니다. 비행기는 항공유를 연소시킬 때 이산화탄소, 질소산화물 등
-          다양한 온실가스를 배출합니다. 특히 고공에서 배출되는 이 가스들은 지구
-          온난화에 더 큰 영향을 미친다고 합니다.
+          우리의 작은 실천이 누군가에게는 큰 희망이 될 수 있습니다.
+          여행 후 남은 외화를 기부하는 것은 작은 시작일 수 있지만,
+          이는 기후난민들에게 새로운 삶의 기회를 제공할 수 있습니다.
+          초록우산과 함께하는 이 캠페인은 단순한 기부를 넘어,
+          지구와 인류의 지속가능한 미래를 위한 의미 있는 발걸음입니다.
         </p>
         <p>
-          2019년 기준, 항공 산업은 전 세계 이산화탄소 배출량의 약 2.5%를
-          차지하고 있으며, 이는 지속적으로 증가하는 추세입니다. 우리가 비행기를
-          이용할 때마다 발생하는 탄소 발자국을 줄이기 위한 노력이 필요합니다.
-          단거리 이동은 가능한 대중교통을 이용하고, 장거리 여행 시에는 탄소 상쇄
-          프로그램을 활용하는 등 작은 실천이 모여 큰 변화를 만들 수 있습니다.
+          전 세계 항공 여행객들이 남긴 잔여 외화를 모아
+          기후난민 지원 사업에 활용한다면, 그 영향력은 매우 클 것입니다.
+          여러분의 작은 관심과 참여가 모여 큰 변화를 만들어낼 수 있습니다.
+          지구를 위한, 그리고 우리 모두를 위한 이 여정에 함께해주세요.
+        </p>
+        <p>
+          트래블월렛은 여러분의 소중한 기부금을 안전하고 투명하게 관리하며,
+          초록우산과 협력하여 전 세계 기후난민 지원 사업에 효과적으로 
+          사용하고 있습니다. 기부금의 사용 내역은 정기적으로 공개되며,
+          여러분은 언제든 그 영향력을 확인하실 수 있습니다.
         </p>
         <p>지구를 위한 우리의 선택이 지금 당장 필요합니다.</p>
-        <p>
-          매일 수많은 비행기가 하늘을 날아다니며 우리의 삶을 편리하게 만들어주고
-          있습니다. 하지만 이 편리함의 이면에는 심각한 환경 문제가 도사리고
-          있습니다. 비행기는 항공유를 연소시킬 때 이산화탄소, 질소산화물 등
-          다양한 온실가스를 배출합니다. 특히 고공에서 배출되는 이 가스들은 지구
-          온난화에 더 큰 영향을 미친다고 합니다.
-        </p>
-        <p>
-          2019년 기준, 항공 산업은 전 세계 이산화탄소 배출량의 약 2.5%를
-          차지하고 있으며, 이는 지속적으로 증가하는 추세입니다. 우리가 비행기를
-          이용할 때마다 발생하는 탄소 발자국을 줄이기 위한 노력이 필요합니다.
-          단거리 이동은 가능한 대중교통을 이용하고, 장거리 여행 시에는 탄소 상쇄
-          프로그램을 활용하는 등 작은 실천이 모여 큰 변화를 만들 수 있습니다.
-        </p>
-        <p>지구를 위한 우리의 선택이 지금 당장 필요합니다.</p>
+      </div>
+      <div class="tree-container">
+        <img src="tree.png" alt="Tree" class="tree-image">
+        <div class="button-container bottom-button">
+          <a href="#" class="download-button" onclick="handleDownload(event)"></a>
+        </div>
       </div>
     </div>
 
@@ -304,6 +406,34 @@
         const clouds = document.querySelectorAll(".cloud");
         const airplane = document.querySelector(".airplane");
         const scene = document.querySelector(".scene");
+        const firstButton = document.querySelector(".button-container");
+        const scrollIndicator = document.querySelector(".scroll-indicator");
+        const dots = document.querySelectorAll(".scroll-dot");
+
+        // 첫 번째 버튼이 뷰포트에 들어오면 스크롤 인디케이터 표시
+        const buttonRect = firstButton.getBoundingClientRect();
+        if (buttonRect.top <= window.innerHeight) {
+          scrollIndicator.style.display = 'block';
+          
+          // 버튼 이후의 컨텐츠 영역에서의 스크롤 진행도 계산
+          const startOffset = firstButton.offsetTop;
+          const contentHeight = document.body.scrollHeight - startOffset;
+          const currentProgress = Math.max(0, (scrolled - startOffset) / (contentHeight - window.innerHeight));
+          
+          // 4개의 구간으로 나누어 해당하는 dot 활성화
+          dots.forEach((dot, index) => {
+            const sectionStart = index * 0.25;
+            const sectionEnd = (index + 1) * 0.25;
+            
+            if (currentProgress >= sectionStart && currentProgress < sectionEnd) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        } else {
+          scrollIndicator.style.display = 'none';
+        }
 
         // 배경색 변경 - 스크롤 진행도 계산 수정
         const totalHeight = document.body.scrollHeight - window.innerHeight;
@@ -411,6 +541,30 @@
           g: Math.round(color1.g + (color2.g - color1.g) * factor),
           b: Math.round(color1.b + (color2.b - color1.b) * factor),
         };
+      }
+
+      // 디바이스별 다운로드 링크 처리
+      function handleDownload(event) {
+        event.preventDefault();
+        
+        const urls = {
+          android: 'https://play.google.com/store/search?q=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9B%94%EB%A0%9B&c=apps&hl=ko',
+          ios: 'https://apps.apple.com/kr/app/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9B%94%EB%A0%9B-travel-pay/id1460769945',
+          desktop: 'https://www.travel-wallet.com/'
+        };
+
+        // iOS 기기 감지
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // 안드로이드 기기 감지
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        if (isIOS) {
+          window.location.href = urls.ios;
+        } else if (isAndroid) {
+          window.location.href = urls.android;
+        } else {
+          window.location.href = urls.desktop;
+        }
       }
     </script>
   </body>
